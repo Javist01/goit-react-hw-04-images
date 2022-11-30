@@ -1,21 +1,28 @@
-import PropTypes from 'prop-types';
-import { ListItem, Img } from './ImageGalleryItem.styled';
+import { PropTypes } from 'prop-types';
+import css from 'components/ImageGalleryItem/ImageGalleryItem.module.css';
 
-function ImageGalleryItem({ itemData, onClick }) {
-  const { id, webformatURL, largeImageURL } = itemData;
+export const ImageGalleryItem = ({
+  id,
+  webformatURL,
+  largeImageURL,
+  onClickItem,
+}) => {
   return (
-    <ListItem
-      className="gallery-item"
-      onClick={() => onClick(largeImageURL, id)}
-    >
-      <Img src={webformatURL} key={id}/>
-    </ListItem>
+    <li className={css.galleryItem}>
+      <img
+        className={css.galleryItem_image}
+        id={id}
+        src={webformatURL}
+        onClick={() => onClickItem(largeImageURL)}
+        alt=""
+      />
+    </li>
   );
-}
-
-export default ImageGalleryItem;
+};
 
 ImageGalleryItem.propTypes = {
-  itemData: PropTypes.object.isRequired,
-  onClick: PropTypes.func.isRequired,
+  id: PropTypes.number.isRequired,
+  webformatURL: PropTypes.string.isRequired,
+  largeImageURL: PropTypes.string.isRequired,
+  onClickItem: PropTypes.func.isRequired,
 };

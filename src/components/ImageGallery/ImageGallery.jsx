@@ -1,18 +1,31 @@
+import React from 'react';
 import PropTypes from 'prop-types';
-import { ImageGallery } from './ImageGallery.style';
-import ImageGalleryItem from 'components/ImageGalleryItem/ImageGalleryItem';
+import css from 'components/ImageGallery/ImageGallery.module.css';
+import { ImageGalleryItem } from 'components/ImageGalleryItem/ImageGalleryItem';
 
-export const GalleryList = ({ pictures, onClick }) => {
+export const ImageGallery = ({ images, toggleModal }) => {
   return (
-    <ImageGallery>
-      {pictures.map(item => (
-        <ImageGalleryItem key={item.id} itemData={item} onClick={onClick} />
+    <ul className={css.gallery}>
+      {images.map(({ id, webformatURL, largeImageURL }) => (
+        <ImageGalleryItem
+          key={id}
+          id={id}
+          webformatURL={webformatURL}
+          largeImageURL={largeImageURL}
+          onClickItem={() => toggleModal(largeImageURL)}
+        />
       ))}
-    </ImageGallery>
+    </ul>
   );
 };
 
-GalleryList.propTypes = {
-  pictures: PropTypes.array.isRequired,
-  onClick: PropTypes.func.isRequired,
+ImageGallery.propTypes = {
+  images: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      webformatURL: PropTypes.string.isRequired,
+      largeImageURL: PropTypes.string.isRequired,
+    })
+  ),
+  toggleModal: PropTypes.func.isRequired,
 };

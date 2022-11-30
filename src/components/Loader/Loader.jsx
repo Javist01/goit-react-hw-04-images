@@ -1,19 +1,19 @@
 import { BallTriangle } from 'react-loader-spinner';
-import { Thumb } from './Loader.styled';
+import css from 'components/Loader/Loader.module.css'
 
-export default function Loader() {
+export const Loader = () => {
   return (
-    <Thumb>
+    <div className={css.loaderWrapper}>
       <BallTriangle
         height={100}
         width={100}
         radius={5}
-        color="blue"
+        color="#4550a7"
         ariaLabel="ball-triangle-loading"
         wrapperClass={{}}
         wrapperStyle=""
         visible={true}
       />
-    </Thumb>
+    </div>
   );
-}
+};

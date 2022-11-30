@@ -1,37 +1,38 @@
-import { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { Overlay, Modal } from './Modal.styled';
+import css from 'components/Modal/Modal.module.css';
+import { useEffect } from 'react';
 
-export default function ModalWindow({ largePicture, closeModal }) {
+export const Modal = ({ imageForModal, onClickModal }) => {
   useEffect(() => {
-    const handleEscKeydown = e => {
+    const handelKeyDown = e => {
       if (e.code === 'Escape') {
-        closeModal();
+        onClickModal();
       }
     };
-
-    window.addEventListener('keydown', handleEscKeydown);
+    window.addEventListener('keydown', handelKeyDown);
 
     return () => {
-      window.removeEventListener('keydown', handleEscKeydown);
+      window.removeEventListener('keydown', handelKeyDown);
     };
-  }, [closeModal]);
+  }, [onClickModal]);
 
-  const handleBackdropClick = e => {
+  const handelBackdropClick = e => {
     if (e.currentTarget === e.target) {
-      closeModal();
+      onClickModal();
     }
   };
 
   return (
-    <Overlay className="overlay" onClick={handleBackdropClick}>
-      <Modal className="modal">
-        <img src={largePicture} alt="" />
-      </Modal>
-    </Overlay>
+    <div className={css.overlay} onClick={handelBackdropClick}>
+      <div className={css.modal}>
+        <img src={imageForModal} alt="" />
+      </div>
+    </div>
   );
-}
+};
 
-ModalWindow.propTypes = {
-  largePicture: PropTypes.string.isRequired,
+Modal.propTypes = {
+  imageForModal: PropTypes.string.isRequired,
+  onClickModal: PropTypes.func.isRequired,
 };

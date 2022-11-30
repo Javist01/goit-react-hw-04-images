@@ -1,16 +1,15 @@
+import css from 'components/Button/Button.module.css';
 import PropTypes from 'prop-types';
-import { LoadMoreButton } from './Button.styled';
 
-export function Button({ children, onClick }) {
+export const Button = ({ text, clickHandler }) => {
   return (
-    <LoadMoreButton type="button" onClick={onClick}>
-      {children}
-    </LoadMoreButton>
+    <button className={css.button} type="button" onClick={clickHandler}>
+      {text}
+    </button>
   );
-}
+};
 
 Button.propTypes = {
-  children: PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired,
+  text: PropTypes.string.isRequired,
+  clickHandler: PropTypes.func.isRequired,
 };
-// ///////////////////////
